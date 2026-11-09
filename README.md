@@ -2,6 +2,8 @@
 
 **Mission control for an AI agent that plans your trip, keeps watching it, and texts you when something changes.**
 
+🏆 **Won Best Application of AI in the Real World** at the Redo hackathon. You could chat with the agent entirely over SMS, it did the planning and rebooking for you, and this dashboard updated live as it worked.
+
 Built in one day at the Redo hackathon (February 2026) with [Jake Nef](https://github.com/jakenef). I designed and built this frontend. Jake built the agent backend in [jakenef/tripmaster](https://github.com/jakenef/tripmaster). We connected the two over a REST API for the demo.
 
 React · TypeScript · Vite · Tailwind · shadcn/ui
