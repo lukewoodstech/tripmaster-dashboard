@@ -1,73 +1,45 @@
-# Welcome to your Lovable project
+# TripMaster: dashboard
 
-## Project info
+**Mission control for an AI agent that plans your trip, keeps watching it, and texts you when something changes.**
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Built in one day at the Redo hackathon (February 2026) with [Jake Nef](https://github.com/jakenef). I designed and built this frontend. Jake built the agent backend in [jakenef/tripmaster](https://github.com/jakenef/tripmaster). We connected the two over a REST API for the demo.
 
-## How can I edit this code?
+React · TypeScript · Vite · Tailwind · shadcn/ui
 
-There are several ways of editing your application.
+![The TripMaster dashboard: agent status, savings, budget and a live activity feed](docs/dashboard.jpg)
 
-**Use Lovable**
+## The idea
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+You text TripMaster where you're going, when, and your budget. An agent finds a round-trip flight and a hotel, then keeps working after you book: it watches for price drops and flight disruptions and texts you when something needs a decision.
 
-Changes made via Lovable will be committed automatically to this repo.
+SMS is the main interface. The dashboard is where you see what the agent is doing and why.
 
-**Use your preferred IDE**
+## What I built
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Landing page** that explains the flow in four steps: text your trip, the agent searches, the dashboard updates, you get alerts.
+- **Agent status.** The current objective, and a phase bar (scanning, filtering, ranking, comparing, monitoring) so you can see how far along the agent is.
+- **Impact metrics.** Money saved against a baseline fare, time saved, alerts sent, and options evaluated.
+- **Live activity feed** of every agent action, tagged by type (search, compare, alert, SMS).
+- **Flights, lodging and activities tabs**, each with the agent's best picks and the preferences that drive them.
+- **Trip budget tracker** that updates as options are selected.
+- **Controls to simulate a delay or a cancellation**, so judges could watch the agent react in real time.
+- **Demo / live toggle.** Live mode reads from Jake's backend. Demo mode replays scripted agent events, so the dashboard works without a server running.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## Design decisions
 
-Follow these steps:
+- **Show the reasoning, not just the result.** An agent that changes your trip on its own needs to earn trust, so the phase bar and activity feed make every step visible.
+- **Lead with outcomes.** Money and time saved sit at the top, where a traveller looks first.
+- **Demo mode as a first-class feature.** Hackathon backends go down at the worst moment. Demo mode meant the pitch never depended on a live server.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## How it was built
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+I designed the dashboard and built it quickly with Lovable, then wired it to the backend through a typed API client ([`src/lib/api.ts`](src/lib/api.ts)) for trip state, agent reasoning, logs and the simulation endpoints. Most of the commit history is Lovable's bot, because Lovable commits each change automatically.
 
-# Step 3: Install the necessary dependencies.
-npm i
+## Run it
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+It opens in demo mode, so no backend is needed. To connect to the live agent, run [jakenef/tripmaster](https://github.com/jakenef/tripmaster) and set `VITE_API_BASE_URL` (see `.env.example`).
